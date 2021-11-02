@@ -16,13 +16,14 @@ import { Episode } from '../../types';
 
 interface EpisodeItemProps {
     episode: Episode;
+    onPress: (eppisode: Episode) => {}
 }
 
 const EpisodeItem = (props: EpisodeItemProps) => {
-    const { episode } = props;
+    const { episode, onPress } = props;
 
     return (
-        <Pressable style={{ margin: 10 }}>
+        <Pressable style={{ margin: 10 }} onPress={() => onPress(episode)}>
             <View style={styles.row}>
                 <Image style={styles.image} source={{ uri: episode.poster }} />
 
