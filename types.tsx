@@ -35,3 +35,28 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
+
+export type BottomTabParamList = {
+  Home: undefined;
+  Coming_Soon: undefined;
+  Search: undefined;
+  Downloads: undefined;
+};
+
+export type HomeParamList = {
+  HomeScreen: undefined;
+  MovieDetailsScreen: undefined;
+};
+
+export type TabTwoParamList = {
+  TabTwoScreen: undefined;
+};
+
+export type Episode = {
+  id: string,
+  title: string,
+  poster: string,
+  duration: string,
+  plot: string,
+  video: string,
+}

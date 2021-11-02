@@ -15,9 +15,12 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
+
 import HomeScreen from '../screens/HomeScreen';
+import MovieDetailsScreen from '../screens/MovieDetailsScreen';
+
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import { RootStackParamList, RootTabParamList, BottomTabParamList, HomeParamList, TabTwoParamList, Episode, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -65,34 +68,71 @@ function BottomTabNavigator() {
       }}>
       <BottomTab.Screen
         name="Home"
-        component={HomeScreen}
+        component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} />,
-          headerShown: false,
+          headerShown: false, 
         }}
       />
       <BottomTab.Screen
         name="Coming_Soon"
-        component={TabTwoScreen}
+        component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <MaterialIcons name="video-library" size={24} color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Search"
-        component={TabTwoScreen}
+        component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <Ionicons name="search" size={24} color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Downloads"
-        component={TabTwoScreen}
+        component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <AntDesign name="download" size={24} color={color} />,
         }}
       />
     </BottomTab.Navigator>
+  );
+}
+
+// Each tab has its own navigation stack, you can read more about this pattern here:
+// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
+const HomeStack = createNativeStackNavigator<HomeParamList>();
+
+function TabOneNavigator() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="MovieDetailsScreen"
+        component={MovieDetailsScreen}
+        options={{ 
+          title: ''
+         }}
+      />
+      <HomeStack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+    </HomeStack.Navigator>
+  );
+}
+
+const TabTwoStack = createNativeStackNavigator<TabTwoParamList>();
+
+function TabTwoNavigator() {
+  return (
+    <TabTwoStack.Navigator>
+      <TabTwoStack.Screen
+        name="TabTwoScreen"
+        component={TabTwoScreen}
+        options={{ headerTitle: 'Tab Two Title' }}
+      />
+    </TabTwoStack.Navigator>
   );
 }
 
